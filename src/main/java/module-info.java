@@ -7,4 +7,5 @@ module Upstream {
     opens audio;
     opens backdrops;
     opens tiles;
+    opens sprites;
 }

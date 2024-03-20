@@ -1,18 +1,20 @@
 package org.example.scenes;
 
 import org.example.Upstream;
+import org.example.entities.player.SalmonPlayer;
 import org.example.entities.playerinfo.PlayerHealthText;
 import org.example.entities.playerinfo.PlayerShieldReadyText;
 import org.example.entities.playerinfo.PlayerSpeedReadyText;
+import org.example.entities.spawners.HazardSpawner;
 import org.example.entities.tilemaps.GameTileMap;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.EntitySpawnerContainer;
-import com.github.hanyaeger.api.Size;
-import com.github.hanyaeger.api.scenes.ScrollableDynamicScene;
+import com.github.hanyaeger.api.scenes.DynamicScene;
+//import com.github.hanyaeger.api.scenes.ScrollableDynamicScene;
 import com.github.hanyaeger.api.scenes.TileMapContainer;
 
-public class RiverSequence extends ScrollableDynamicScene implements EntitySpawnerContainer, TileMapContainer {
+public class RiverSequence extends DynamicScene implements EntitySpawnerContainer, TileMapContainer {
     private Upstream upstream;
 
     public RiverSequence(Upstream upstream) {
@@ -21,8 +23,6 @@ public class RiverSequence extends ScrollableDynamicScene implements EntitySpawn
 
     @Override
     public void setupScene() {
-        setSize(new Size(10000, 800));
-        setScrollPosition(new Coordinate2D(0, 0));
         // setBackgroundAudio("audio/GamePlay.mp3");
         setBackgroundImage("backdrops/fishTile_089.png");
     }
@@ -35,16 +35,17 @@ public class RiverSequence extends ScrollableDynamicScene implements EntitySpawn
         addEntity(playerHealthText);
         addEntity(playerShieldReadyText);
         addEntity(playerSpeedReadyText);
-
+        addEntity(new SalmonPlayer(new Coordinate2D(50, getHeight() / 2), playerHealthText,
+                playerShieldReadyText, playerSpeedReadyText, upstream));
     }
 
     @Override
     public void setupTileMaps() {
-        addTileMap(new GameTileMap(200));
+        addTileMap(new GameTileMap(20));
     }
 
     @Override
     public void setupEntitySpawners() {
-        //
+        addEntitySpawner(new HazardSpawner(this.getWidth(), this.getHeight()));
     }
 }

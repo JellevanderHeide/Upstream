@@ -15,7 +15,6 @@ public class GameTileMap extends TileMap {
     private List<Integer> lowerTiles = Arrays.asList(1, 2, 11, 12);
 
     public GameTileMap(int tileWidth) {
-        System.out.println("knolraap");
         this.tileWidth = tileWidth;
         lowergGroundTiles = new int[tileWidth];
         uppergGroundTiles = new int[tileWidth];
