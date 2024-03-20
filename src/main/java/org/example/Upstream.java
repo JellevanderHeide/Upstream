@@ -2,6 +2,8 @@ package org.example;
 
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.YaegerGame;
+
+import org.example.scenes.RiverSequence;
 import org.example.scenes.StartScreen;
 
 public class Upstream extends YaegerGame {
@@ -19,7 +21,7 @@ public class Upstream extends YaegerGame {
     @Override
     public void setupScenes() {
         addScene(0, new StartScreen(this));
-        // addScene(1, new RiverSequence(this));
+        addScene(1, new RiverSequence(this));
         // addScene(2, new GameOver(this));
         // addScene(3, new GameWon(this));
     }

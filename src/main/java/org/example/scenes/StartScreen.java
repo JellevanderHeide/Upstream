@@ -7,12 +7,16 @@ import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.entities.impl.TextEntity;
 import com.github.hanyaeger.api.scenes.StaticScene;
+import com.github.hanyaeger.api.scenes.TileMapContainer;
+
 import org.example.entities.clickables.StartButton;
+import org.example.entities.tilemaps.GameTileMap;
+
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class StartScreen extends StaticScene {
+public class StartScreen extends StaticScene implements TileMapContainer {
     private Upstream upstream;
 
     public StartScreen(Upstream upstream) {
@@ -21,7 +25,7 @@ public class StartScreen extends StaticScene {
 
     @Override
     public void setupScene() {
-        setBackgroundAudio("audio/StartScreen.mp3");
+        // setBackgroundAudio("audio/StartScreen.mp3");
         setBackgroundImage("backdrops/fishTile_089.png");
     }
 
@@ -41,5 +45,10 @@ public class StartScreen extends StaticScene {
         StartButton startButton = new StartButton(this.upstream, new Coordinate2D(getWidth() / 2, getHeight() / 3 * 2));
         startButton.setAnchorPoint(AnchorPoint.CENTER_CENTER);
         addEntity(startButton);
+    }
+
+    @Override
+    public void setupTileMaps() {
+        addTileMap(new GameTileMap(20));
     }
 }
