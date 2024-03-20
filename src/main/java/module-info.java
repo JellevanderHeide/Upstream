@@ -1,6 +1,9 @@
 module Upstream {
     requires hanyaeger;
+
     exports org.example;
 
-    //opens tiles;
+    opens audio;
+    opens backdrops;
+    opens tiles;
 }
