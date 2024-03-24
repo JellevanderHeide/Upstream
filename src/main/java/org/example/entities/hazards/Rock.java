@@ -1,6 +1,7 @@
 package org.example.entities.hazards;
 
 import java.util.List;
+import java.util.Random;
 import org.example.entities.player.SalmonPlayer;
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
@@ -11,13 +12,11 @@ import com.github.hanyaeger.api.entities.SceneBorderCrossingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 
-public class BigFish extends DynamicSpriteEntity implements SceneBorderCrossingWatcher, Collider, Collided {
+public class Rock extends DynamicSpriteEntity implements SceneBorderCrossingWatcher, Collider, Collided {
     private static int damagePoints = 1;
-    private static int spriteWidth = 300;
-    private static int spriteHeight = 300;
 
-    public BigFish(Coordinate2D location, int speed) {
-        super("sprites/bigfish.png", location, new Size(spriteWidth, spriteHeight));
+    public Rock(Coordinate2D location, int speed) {
+        super("sprites/rock" + String.valueOf(new Random().nextInt(1, 7)) + ".png", location.subtract(new Coordinate2D(0, 100)) , new Size(200, 200));
         setMotion(speed, Direction.LEFT);
     }
 
@@ -32,7 +31,7 @@ public class BigFish extends DynamicSpriteEntity implements SceneBorderCrossingW
 
     @Override
     public void notifyBoundaryCrossing(SceneBorder border) {
-        if (border.equals(SceneBorder.TOP)) {
+        if (border.equals(SceneBorder.LEFT)) {
             remove();
         }
     }
@@ -41,11 +40,6 @@ public class BigFish extends DynamicSpriteEntity implements SceneBorderCrossingW
         return damagePoints;
     }
 
-    public static int getSpriteWidth(){
-        return spriteWidth;
-    }
 
-    public static int getSpriteHeight(){
-        return spriteHeight;
-    }
+
 }

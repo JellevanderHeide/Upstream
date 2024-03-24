@@ -7,36 +7,37 @@ import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.userinput.MouseButtonPressedListener;
 import com.github.hanyaeger.api.userinput.MouseEnterListener;
 import com.github.hanyaeger.api.userinput.MouseExitListener;
+
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class StartButton extends TextEntity implements MouseButtonPressedListener, MouseEnterListener, MouseExitListener {
+public class QuitButton extends TextEntity implements MouseButtonPressedListener, MouseEnterListener, MouseExitListener{
     private Upstream upstream;
 
-    public StartButton(Upstream upstream, Coordinate2D location) {
-        super(location, "Start");
+    public QuitButton(Upstream upstream, Coordinate2D location) {
+        super(location, "Quit");
         setAnchorPoint(AnchorPoint.CENTER_CENTER);
-        setFill(Color.BLACK);
+        setFill(Color.GRAY);
         setFont(Font.font("Arial", FontWeight.BOLD, 75));
         this.upstream = upstream;
     }
 
     @Override
     public void onMouseButtonPressed(MouseButton button, Coordinate2D coordinate2d) {
-        upstream.setActiveScene(1);
+        upstream.quit();
     }
 
     @Override
     public void onMouseEntered() {
-        setFill(Color.DARKGREEN);
+        setFill(Color.DARKRED);
         setFont(Font.font("Arial", FontWeight.BOLD, 85));
     }
 
     @Override
     public void onMouseExited() {
-        setFill(Color.BLACK);
+        setFill(Color.GRAY);
         setFont(Font.font("Arial", FontWeight.BOLD, 75));
     }   
 }

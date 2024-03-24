@@ -6,6 +6,7 @@ import com.github.hanyaeger.api.entities.Collider;
 import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 
 public class RiverbedTile extends SpriteEntity implements Collider {
+    @SuppressWarnings("exports")
     public RiverbedTile(Coordinate2D location, Size size, String image) {
         super(image, location, size);
     }

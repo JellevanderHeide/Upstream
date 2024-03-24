@@ -7,6 +7,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class PlayerSpeedReadyText extends TextEntity {
+    private boolean isReady;
+
     public PlayerSpeedReadyText(Coordinate2D location) {
         super(location);
 
@@ -17,8 +19,13 @@ public class PlayerSpeedReadyText extends TextEntity {
     public void setAvailable(Boolean shieldReady) {
         if (shieldReady) {
             setText("Speedboost: READY");
+            this.isReady = true;
         } else {
             setText("Speedboost: NOT READY");
+            this.isReady = false;
         }
+    }
+    public boolean isReady(){
+        return this.isReady;
     }
 }

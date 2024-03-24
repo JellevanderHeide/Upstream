@@ -11,13 +11,11 @@ import com.github.hanyaeger.api.entities.SceneBorderCrossingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 
-public class BigFish extends DynamicSpriteEntity implements SceneBorderCrossingWatcher, Collider, Collided {
-    private static int damagePoints = 1;
-    private static int spriteWidth = 300;
-    private static int spriteHeight = 300;
+public class FishHook extends DynamicSpriteEntity implements SceneBorderCrossingWatcher, Collider, Collided {
+    private static int damagePoints = 2;
 
-    public BigFish(Coordinate2D location, int speed) {
-        super("sprites/bigfish.png", location, new Size(spriteWidth, spriteHeight));
+    public FishHook(Coordinate2D location, int speed) {
+        super("sprites/fishhook.png", location, new Size(50, 250));
         setMotion(speed, Direction.LEFT);
     }
 
@@ -32,20 +30,12 @@ public class BigFish extends DynamicSpriteEntity implements SceneBorderCrossingW
 
     @Override
     public void notifyBoundaryCrossing(SceneBorder border) {
-        if (border.equals(SceneBorder.TOP)) {
+        if (border.equals(SceneBorder.LEFT)) {
             remove();
         }
     }
 
     public static int getDamagePoints() {
         return damagePoints;
-    }
-
-    public static int getSpriteWidth(){
-        return spriteWidth;
-    }
-
-    public static int getSpriteHeight(){
-        return spriteHeight;
     }
 }

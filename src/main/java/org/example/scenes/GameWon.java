@@ -16,10 +16,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class StartScreen extends StaticScene implements TileMapContainer {
+public class GameWon extends StaticScene implements TileMapContainer {
     private Upstream upstream;
 
-    public StartScreen(Upstream upstream) {
+    public GameWon(Upstream upstream) {
         this.upstream = upstream;
     }
 
