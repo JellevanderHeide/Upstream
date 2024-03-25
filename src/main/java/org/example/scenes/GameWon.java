@@ -1,17 +1,16 @@
 package org.example.scenes;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import org.example.Upstream;
 import com.github.hanyaeger.api.AnchorPoint;
 import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.impl.TextEntity;
 import com.github.hanyaeger.api.scenes.StaticScene;
 import com.github.hanyaeger.api.scenes.TileMapContainer;
-
-import org.example.entities.clickables.StartButton;
+import org.example.entities.clickables.QuitButton;
+import org.example.entities.clickables.TryAgainButton;
+import org.example.entities.other.Heart;
 import org.example.entities.tilemaps.GameTileMap;
-
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -26,25 +25,24 @@ public class GameWon extends StaticScene implements TileMapContainer {
     @Override
     public void setupScene() {
         // setBackgroundAudio("audio/StartScreen.mp3");
-        setBackgroundImage("backdrops/fishTile_089.png");
+        setBackgroundColor(Color.SALMON);
     }
 
     @Override
     public void setupEntities() {
-        ArrayList<Color> textColours = new ArrayList<Color>(Arrays.asList(Color.DARKGRAY, Color.LIGHTGRAY));
-        ArrayList<TextEntity> textEntities = new ArrayList<TextEntity>();
-        for (int i = 0; i < 2; i++) {
-            textEntities.add(new TextEntity(new Coordinate2D(getWidth() / 2, getHeight() / 3), "Upstream"));
-            TextEntity currentTextEntity = textEntities.get(i);
-            currentTextEntity.setAnchorPoint(AnchorPoint.CENTER_CENTER);
-            currentTextEntity.setFill(textColours.get(i));
-            currentTextEntity.setFont(Font.font("Arial", FontWeight.BOLD, 110 - (i * 5)));
-            addEntity(currentTextEntity);
-        }
+        Heart heart = new Heart(new Coordinate2D(getWidth()/4, getHeight()/4), new Size(getWidth()/2, getWidth()/2));
+        addEntity(heart);
+        TextEntity textEntity = (new TextEntity(new Coordinate2D(getWidth() / 2, getHeight() / 5), "You won!"));
+        textEntity.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        textEntity.setFill(Color.RED);
+        textEntity.setFont(Font.font("Arial", FontWeight.BOLD, 150));
+        addEntity(textEntity);
 
-        StartButton startButton = new StartButton(this.upstream, new Coordinate2D(getWidth() / 2, getHeight() / 3 * 2));
-        startButton.setAnchorPoint(AnchorPoint.CENTER_CENTER);
-        addEntity(startButton);
+        QuitButton quitButton = new QuitButton(this.upstream, new Coordinate2D(getWidth() / 5, getHeight() / 5*4));
+        TryAgainButton tryAgainButton = new TryAgainButton(this.upstream, new Coordinate2D(getWidth() / 5 * 4, getHeight() / 5*4));
+        quitButton.setAnchorPoint(AnchorPoint.CENTER_CENTER);
+        addEntity(quitButton);
+        addEntity(tryAgainButton);
     }
 
     @Override

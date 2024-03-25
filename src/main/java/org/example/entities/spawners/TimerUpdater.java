@@ -1,4 +1,8 @@
 package org.example.entities.spawners;
+
+import java.time.Duration;
+import java.time.Instant;
+
 import org.example.Upstream;
 import org.example.entities.player.SalmonPlayer;
 
@@ -20,8 +24,19 @@ public class TimerUpdater extends EntitySpawner {
     protected void spawnEntities() {
         this.secondsLeft--;
         player.getPlayerSurvivalTime().setText(this.secondsLeft);
-        if(this.secondsLeft <= 0){
-            this.upstream.setActiveScene(4);
+        if (this.secondsLeft <= 0) {
+            this.upstream.setActiveScene(3);
+        }
+        if (Duration.between(player.getPlayerTimeShielded(), Instant.now()).toMillis() >= 5000
+                && player.getShielded()) {
+            player.setUnshielded();
+        }
+        if (Duration.between(player.getPlayerTimeSpeedBoosted(), Instant.now()).toMillis() >= 5000
+                && player.getSpeedBoosted()) {
+            player.setNormalSpeed();
+        }
+        if (Duration.between(player.getPlayerTimeHit(), Instant.now()).toMillis() >= 3000 && !player.getShielded()) {
+            player.setSaturation(0);
         }
     }
 }

@@ -25,7 +25,13 @@ public class PlayerSpeedReadyText extends TextEntity {
             this.isReady = false;
         }
     }
-    public boolean isReady(){
+
+    public void setActive() {
+        setText("Speedboost: ACTIVATED");
+        this.isReady = false;
+    }
+
+    public boolean isReady() {
         return this.isReady;
     }
 }

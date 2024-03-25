@@ -14,8 +14,11 @@ import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 
 public class ShieldPowerup extends DynamicSpriteEntity implements SceneBorderCrossingWatcher, Collider, Collided {
+    private static int spriteWidth = 50;
+    private static int spriteHeight = 50;
+
     public ShieldPowerup(Coordinate2D location, int speed) {
-        super("sprites/bigfish.png", location, new Size(25, 50));
+        super("sprites/shield.png", location, new Size(spriteWidth, spriteHeight));
         setMotion(speed, Direction.LEFT);
     }
 
@@ -23,15 +26,23 @@ public class ShieldPowerup extends DynamicSpriteEntity implements SceneBorderCro
     public void onCollision(List<Collider> collidingObjects) {
         for (Collider collider : collidingObjects) {
             if (collider instanceof SalmonPlayer) {
-                break;
+                remove();
             }
         }
     }
 
     @Override
     public void notifyBoundaryCrossing(SceneBorder border) {
-        if (border.equals(SceneBorder.TOP)) {
+        if (border.equals(SceneBorder.LEFT)) {
             remove();
         }
+    }
+
+    public static int getSpriteWidth() {
+        return spriteWidth;
+    }
+
+    public static int getSpriteHeight() {
+        return spriteHeight;
     }
 }

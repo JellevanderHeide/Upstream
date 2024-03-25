@@ -12,8 +12,11 @@ import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 
 public class FishNet extends DynamicSpriteEntity implements SceneBorderCrossingWatcher, Collider, Collided {
+    private static int spriteWidth = 100;
+    private static int spriteHeight = 300;
+
     public FishNet(Coordinate2D location, int speed) {
-        super("sprites/fishnet.png", location, new Size(300, 150));
+        super("sprites/fishnet.png", location, new Size(spriteWidth, spriteHeight));
         setMotion(speed, Direction.LEFT);
     }
 
@@ -31,5 +34,13 @@ public class FishNet extends DynamicSpriteEntity implements SceneBorderCrossingW
         if (border.equals(SceneBorder.LEFT)) {
             remove();
         }
+    }
+
+    public static int getSpriteWidth(){
+        return spriteWidth;
+    }
+
+    public static int getSpriteHeight(){
+        return spriteHeight;
     }
 }

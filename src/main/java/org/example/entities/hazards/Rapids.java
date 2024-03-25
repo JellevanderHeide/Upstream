@@ -12,8 +12,11 @@ import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 
 public class Rapids extends DynamicSpriteEntity implements SceneBorderCrossingWatcher, Collider, Collided {
+    private static int spriteWidth = 150;
+    private static int spriteHeight = 150;
+
     public Rapids(Coordinate2D location, int speed) {
-        super("sprites/rapids.png", location, new Size(150, 150), 8, 5);
+        super("sprites/rapids.png", location, new Size(spriteWidth, spriteHeight), 8, 5);
         setAutoCycle(125);
         setMotion(speed, Direction.LEFT);
     }
@@ -32,5 +35,13 @@ public class Rapids extends DynamicSpriteEntity implements SceneBorderCrossingWa
         if (border.equals(SceneBorder.LEFT)) {
             remove();
         }
+    }
+
+    public static int getSpriteWidth(){
+        return spriteWidth;
+    }
+
+    public static int getSpriteHeight(){
+        return spriteHeight;
     }
 }

@@ -8,6 +8,7 @@ import javafx.scene.text.FontWeight;
 
 public class PlayerShieldReadyText extends TextEntity {
     private boolean isReady;
+    private boolean isActive;
 
     public PlayerShieldReadyText(Coordinate2D location) {
         super(location);
@@ -22,11 +23,22 @@ public class PlayerShieldReadyText extends TextEntity {
             this.isReady = true;
         } else {
             setText("Shield: NOT READY");
+            this.isActive = false;
             this.isReady = false;
         }
     }
 
-    public boolean isReady(){
+    public void setActive() {
+        setText("Shield: ACTIVATED");
+        this.isActive = true;
+        this.isReady = false;
+    }
+
+    public boolean isReady() {
         return this.isReady;
+    }
+
+    public boolean isActive() {
+        return this.isActive;
     }
 }

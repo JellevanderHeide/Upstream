@@ -15,9 +15,11 @@ import com.github.hanyaeger.api.scenes.SceneBorder;
 
 public class SmallFish extends DynamicSpriteEntity implements SceneBorderCrossingWatcher, Collider, Collided {
     private static int damagePoints = -1;
+    private static int spriteWidth = 50;
+    private static int spriteHeight = 50;
 
     public SmallFish(Coordinate2D location, int speed) {
-        super("sprites/smallfish.png", location, new Size(50, 25));
+        super("sprites/smallfish.png", location, new Size(spriteWidth, spriteHeight));
         setMotion(speed, Direction.LEFT);
     }
 
@@ -39,6 +41,14 @@ public class SmallFish extends DynamicSpriteEntity implements SceneBorderCrossin
 
     public static int getDamagePoints() {
         return damagePoints;
+    }
+
+    public static int getSpriteWidth(){
+        return spriteWidth;
+    }
+
+    public static int getSpriteHeight(){
+        return spriteHeight;
     }
 
 }

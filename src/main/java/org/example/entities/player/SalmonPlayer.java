@@ -38,22 +38,30 @@ public class SalmonPlayer extends DynamicSpriteEntity
     private PlayerSurvivalTimeText playerSurvivalTimeText;
     private Instant timeHit;
     private Instant timeImmovable;
+    private Instant timeSpeedBoosted;
+    private Instant timeShielded;
     private int healthPoints;
     private int speed;
     private Upstream upstream;
+    private boolean shielded;
+    private boolean speedBoosted;
 
     public SalmonPlayer(Coordinate2D location, PlayerHealthText playerHealthText,
-            PlayerShieldReadyText playerShieldReadyText, PlayerSpeedReadyText playerSpeedReadyText, PlayerSurvivalTimeText playerSurvivalTimeText, Upstream upstream) {
+            PlayerShieldReadyText playerShieldReadyText, PlayerSpeedReadyText playerSpeedReadyText,
+            PlayerSurvivalTimeText playerSurvivalTimeText, Upstream upstream) {
         super("sprites/playerfish.png", location, new Size(100, 50));
         this.speed = 3;
         this.timeHit = Instant.now();
         this.timeImmovable = Instant.now();
+        this.timeSpeedBoosted = Instant.now();
+        this.timeShielded = Instant.now();
         this.healthPoints = 5;
         this.playerHealthText = playerHealthText;
         this.playerShieldReadyText = playerShieldReadyText;
         this.playerSpeedReadyText = playerSpeedReadyText;
         this.playerSurvivalTimeText = playerSurvivalTimeText;
         this.upstream = upstream;
+        this.shielded = false;
         setFrictionConstant(0.1);
         setGravityConstant(0);
         playerHealthText.setText("Health: " + String.valueOf(healthPoints));
@@ -62,8 +70,20 @@ public class SalmonPlayer extends DynamicSpriteEntity
         playerSpeedReadyText.setAvailable(false);
     }
 
-    public PlayerSurvivalTimeText getPlayerSurvivalTime(){
+    public PlayerSurvivalTimeText getPlayerSurvivalTime() {
         return this.playerSurvivalTimeText;
+    }
+
+    public Instant getPlayerTimeSpeedBoosted() {
+        return this.timeSpeedBoosted;
+    }
+
+    public Instant getPlayerTimeShielded() {
+        return this.timeShielded;
+    }
+
+    public Instant getPlayerTimeHit() {
+        return this.timeHit;
     }
 
     @Override
@@ -71,30 +91,42 @@ public class SalmonPlayer extends DynamicSpriteEntity
         boolean bottomCollision = false;
 
         for (Collider collider : collidingObjects) {
-            if (collider instanceof RiverbedTile) {
-                bottomCollision = true;
-            } else if (collider instanceof BigFish && Duration.between(this.timeHit, Instant.now()).toMillis() >= 3000) {
-                this.timeHit = Instant.now();
-                this.setHealth(this.healthPoints - BigFish.getDamagePoints());                                                                       
-            } else if (collider instanceof FishHook && Duration.between(this.timeHit, Instant.now()).toMillis() >= 3000) {
-                this.timeHit = Instant.now();
-                this.setHealth(this.healthPoints - FishHook.getDamagePoints());  
-            }else if (collider instanceof FishNet && Duration.between(this.timeHit, Instant.now()).toMillis() >= 3000) {
-                this.upstream.setActiveScene(2);
-            }else if (collider instanceof Rapids && Duration.between(this.timeHit, Instant.now()).toMillis() >= 3000) {                                                                      
-                this.speed = 0;
-                this.timeImmovable = Instant.now();
-            }else if (collider instanceof RiverTrash && Duration.between(this.timeHit, Instant.now()).toMillis() >= 3000) {
-                this.timeHit = Instant.now();
-                this.setHealth(this.healthPoints - RiverTrash.getDamagePoints());  
-            }else if (collider instanceof Rock && Duration.between(this.timeHit, Instant.now()).toMillis() >= 3000) {
-                this.timeHit = Instant.now();
-                this.setHealth(this.healthPoints - Rock.getDamagePoints());  
-            }else if (collider instanceof ShieldPowerup) {
-                playerShieldReadyText.setAvailable(true);
-            }else if (collider instanceof SmallFish) {
-                this.setHealth(this.healthPoints - SmallFish.getDamagePoints());
-                playerSpeedReadyText.setAvailable(true);
+            if (!shielded) {
+                if (collider instanceof RiverbedTile) {
+                    bottomCollision = true;
+                } else if (collider instanceof BigFish
+                        && Duration.between(this.timeHit, Instant.now()).toMillis() >= 3000) {
+                    this.timeHit = Instant.now();
+                    setSaturation(-1);
+                    this.setHealth(this.healthPoints - BigFish.getDamagePoints());
+                } else if (collider instanceof FishHook
+                        && Duration.between(this.timeHit, Instant.now()).toMillis() >= 3000) {
+                    this.timeHit = Instant.now();
+                    setSaturation(-1);
+                    this.setHealth(this.healthPoints - FishHook.getDamagePoints());
+                } else if (collider instanceof FishNet
+                        && Duration.between(this.timeHit, Instant.now()).toMillis() >= 3000) {
+                    this.upstream.setActiveScene(2);
+                } else if (collider instanceof Rapids
+                        && Duration.between(this.timeHit, Instant.now()).toMillis() >= 3000) {
+                    this.speed = 0;
+                    this.timeImmovable = Instant.now();
+                } else if (collider instanceof RiverTrash
+                        && Duration.between(this.timeHit, Instant.now()).toMillis() >= 3000) {
+                    this.timeHit = Instant.now();
+                    setSaturation(-1);
+                    this.setHealth(this.healthPoints - RiverTrash.getDamagePoints());
+                } else if (collider instanceof Rock
+                        && Duration.between(this.timeHit, Instant.now()).toMillis() >= 3000) {
+                    this.timeHit = Instant.now();
+                    setSaturation(-1);
+                    this.setHealth(this.healthPoints - Rock.getDamagePoints());
+                } else if (collider instanceof ShieldPowerup) {
+                    playerShieldReadyText.setAvailable(true);
+                } else if (collider instanceof SmallFish) {
+                    this.setHealth(this.healthPoints - SmallFish.getDamagePoints());
+                    playerSpeedReadyText.setAvailable(true);
+                }
             }
         }
         if (bottomCollision) {
@@ -128,7 +160,7 @@ public class SalmonPlayer extends DynamicSpriteEntity
 
     @Override
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
-        if(this.speed != 0){
+        if (this.speed != 0) {
             if (pressedKeys.contains(KeyCode.W)) {
                 setMotion(speed, Direction.UP);
             } else if (pressedKeys.contains(KeyCode.A)) {
@@ -139,9 +171,25 @@ public class SalmonPlayer extends DynamicSpriteEntity
             } else if (pressedKeys.contains(KeyCode.D)) {
                 setCurrentFrameIndex(1);
                 setMotion(speed, Direction.RIGHT);
+
+            } else if (pressedKeys.contains(KeyCode.Q)) {
+                if (playerShieldReadyText.isReady()) {
+                    shielded = true;
+                    timeShielded = Instant.now();
+                    setSaturation(-1);
+                    playerShieldReadyText.setActive();
+                }
+            } else if (pressedKeys.contains(KeyCode.E)) {
+                if (playerSpeedReadyText.isReady()) {
+                    speedBoosted = true;
+                    setSaturation(1);
+                    timeSpeedBoosted = Instant.now();
+                    playerSpeedReadyText.setActive();
+                    this.speed = this.speed * 2;
+                }
             }
         } else {
-            if(Duration.between(this.timeImmovable, Instant.now()).toMillis() >= 3000){
+            if (Duration.between(this.timeImmovable, Instant.now()).toMillis() >= 3000) {
                 this.speed = 3;
             }
         }
@@ -153,5 +201,26 @@ public class SalmonPlayer extends DynamicSpriteEntity
         }
         this.healthPoints = healthPoints;
         this.playerHealthText.setText("Health: " + String.valueOf(healthPoints));
+    }
+
+    public void setUnshielded() {
+        playerShieldReadyText.setAvailable(false);
+        setSaturation(0);
+        this.shielded = false;
+    }
+
+    public void setNormalSpeed() {
+        playerSpeedReadyText.setAvailable(false);
+        setSaturation(0);
+        this.speedBoosted = false;
+        this.speed = 3;
+    }
+
+    public boolean getSpeedBoosted() {
+        return this.speedBoosted;
+    }
+
+    public boolean getShielded() {
+        return this.shielded;
     }
 }

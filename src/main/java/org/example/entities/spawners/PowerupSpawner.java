@@ -24,13 +24,17 @@ public class PowerupSpawner extends EntitySpawner {
     @Override
     protected void spawnEntities() {
         Random random = new Random();
-        int hazardType = random.nextInt(1, 3);
-        switch (hazardType) {
+        int powerUpType = random.nextInt(1, 10);
+        switch (powerUpType) {
             case SHIELD:
-                spawn(new ShieldPowerup(new Coordinate2D(sceneWidth, random.nextDouble(0, sceneHeight / upstream.getTileHeight() * (upstream.getTileHeight() - 2))), 0));         
+                spawn(new ShieldPowerup(new Coordinate2D(sceneWidth,
+                        random.nextDouble(0, sceneHeight / upstream.getTileHeight() * (upstream.getTileHeight() - 2))),
+                        4));
                 break;
             case SPEED:
-                spawn(new SmallFish(new Coordinate2D(sceneWidth, random.nextDouble(0, sceneHeight / upstream.getTileHeight() * (upstream.getTileHeight() - 2))), 0));        
+                spawn(new SmallFish(new Coordinate2D(sceneWidth,
+                        random.nextDouble(0, sceneHeight / upstream.getTileHeight() * (upstream.getTileHeight() - 2))),
+                        4));
                 break;
             default:
                 break;

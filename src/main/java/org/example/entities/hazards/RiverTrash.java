@@ -14,10 +14,11 @@ import com.github.hanyaeger.api.scenes.SceneBorder;
 
 public class RiverTrash extends DynamicSpriteEntity implements SceneBorderCrossingWatcher, Collider, Collided, Newtonian{
     private static int damagePoints = 1;
+    private static int spriteWidth = 200;
+    private static int spriteHeight = 200;
 
     public RiverTrash(Coordinate2D location, int speed) {
-        super("sprites/garbagebag.png", location.subtract(new Coordinate2D(100, 0)), new Size(100, 100));
-        //setMotion(speed, Direction.DOWN);
+        super("sprites/garbagebag.png", location.subtract(new Coordinate2D(spriteHeight, 0)), new Size(spriteWidth, spriteHeight));
         setFrictionConstant(0.2);
         setGravityConstant(0.35);
     }
@@ -42,6 +43,14 @@ public class RiverTrash extends DynamicSpriteEntity implements SceneBorderCrossi
 
     public static int getDamagePoints() {
         return damagePoints;
+    }
+
+    public static int getSpriteWidth(){
+        return spriteWidth;
+    }
+
+    public static int getSpriteHeight(){
+        return spriteHeight;
     }
 
 }

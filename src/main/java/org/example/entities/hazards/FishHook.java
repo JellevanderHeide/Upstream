@@ -13,9 +13,11 @@ import com.github.hanyaeger.api.scenes.SceneBorder;
 
 public class FishHook extends DynamicSpriteEntity implements SceneBorderCrossingWatcher, Collider, Collided {
     private static int damagePoints = 2;
+    private static int spriteWidth = 50;
+    private static int spriteHeight = 250;
 
     public FishHook(Coordinate2D location, int speed) {
-        super("sprites/fishhook.png", location, new Size(50, 250));
+        super("sprites/fishhook.png", location, new Size(spriteWidth, spriteHeight));
         setMotion(speed, Direction.LEFT);
     }
 
