@@ -4,12 +4,12 @@
  * Version:         1.0
  * 
  * Global function description:
- *  Places and moves a shield from right to left, which grants the player
- *  an opportunity to shield themselves when touched.
+ *  Places and moves rapids from right to left, which slows the player to
+ *  a halt for three seconds when touched.
  * 
 */
 
-package org.example.entities.powerups;
+package org.example.entities.hazardnodamage;
 
 import java.util.List;
 import org.example.entities.player.SalmonPlayer;
@@ -24,14 +24,15 @@ import com.github.hanyaeger.api.entities.SceneBorderCrossingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 
-public class ShieldPowerup extends DynamicSpriteEntity implements SceneBorderCrossingWatcher, Collider, Collided, Powerup {
+public class Rapids extends DynamicSpriteEntity implements SceneBorderCrossingWatcher, Collider, Collided, HazardNoDamage {
     private int spriteWidth;
     private int spriteHeight;
 
-    public ShieldPowerup(Coordinate2D location, int speed, int spriteWidth, int spriteHeight) {
-        super("sprites/shield.png", location, new Size(spriteWidth, spriteHeight));
+    public Rapids(Coordinate2D location, int speed, int spriteWidth, int spriteHeight) {
+        super("sprites/rapids.png", location, new Size(spriteWidth, spriteHeight), 8, 5);
         this.spriteWidth = spriteWidth;
         this.spriteHeight = spriteHeight;
+        setAutoCycle(125);
         setMotion(speed, Direction.LEFT);
     }
 
@@ -43,7 +44,9 @@ public class ShieldPowerup extends DynamicSpriteEntity implements SceneBorderCro
     @Override
     public void onCollision(List<Collider> collidingObjects) {
         for (Collider collider : collidingObjects) {
-            if (collider instanceof SalmonPlayer || collider instanceof RiverbedTile) {
+            if (collider instanceof SalmonPlayer) {
+                break;
+            } else if (collider instanceof RiverbedTile){
                 remove();
             }
         }
@@ -53,7 +56,7 @@ public class ShieldPowerup extends DynamicSpriteEntity implements SceneBorderCro
      * Handles crossing the screen boundary.
      * 
      * @param border    Border of the current scene.
-     */
+     */    
     @Override
     public void notifyBoundaryCrossing(SceneBorder border) {
         if (border.equals(SceneBorder.LEFT)) {
@@ -66,7 +69,7 @@ public class ShieldPowerup extends DynamicSpriteEntity implements SceneBorderCro
      * 
      * @return int      the spritewidth.
      */
-    public int getSpriteWidth() {
+    public int getSpriteWidth(){
         return spriteWidth;
     }
 
@@ -75,7 +78,7 @@ public class ShieldPowerup extends DynamicSpriteEntity implements SceneBorderCro
      * 
      * @return int      the spriteheight.
      */
-    public int getSpriteHeight() {
+    public int getSpriteHeight(){
         return spriteHeight;
     }
 }
