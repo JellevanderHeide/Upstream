@@ -47,3 +47,17 @@ Het spel kan op twee manieren eindigen:
 - Power ups kunnen inspawnen op hazards, waardoor je schade zal moeten oplopen om ze te kunnen oppakken.
 - Wanneer je een speedboost activeert terwijl je net geraakt bent of een schild geactiveerd hebt word de vis weer blauw, terwijl er nog wel immuniteit geldt.
 - Stenen spawnen soms in op een plek die niet aansluit op de ondergrond, waaroor het lijkt of ze zweven in plaats van stil liggen op de grond.
+
+## Bronnen van de sprites
+- [heart.png](https://unreached-lands.itch.io/lifebar-pixelart-sprites-16x16)
+- [sea.png |  smallfish.png | bigfish.png | playerfish.png | alle tiles](https://kenney.nl/assets/fish-pack)
+- [fishhook.png](https://opengameart.org/content/items10)
+- [fishnet.png](https://www.cleanpng.com/png-fishing-nets-portable-network-graphics-pesca-indus-7276773/preview.html)
+- [garbagebag.png](https://btl-games.itch.io/trash-and-junk-asset-pack)
+- [rapids.png](https://opengameart.org/content/alot-of-particles-whirlpool-special-effect-alotofparticles01)
+- [alle stenen](https://dustdfg.itch.io/pixel-art-top-down-rocks-pack)
+- [shield.png](https://havran.itch.io/wooden-shield)
+
+## Bronnen van de audio
+- [achtergrondmuziek van de scenes](https://tallbeard.itch.io/music-loop-bundle)
+- [hit.mp3 | slowed.mp3 | powerup.mp3](https://kenney.nl/assets/music-jingles)
