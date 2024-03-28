@@ -66,25 +66,3 @@ public class Upstream extends YaegerGame {
         return this.gameWidth / 50;
     }
 }
-
-/*
-// in upstream aangeven wat de bron is van de png's
-// readme met game uitleg
-
-// Ik kan er voor zorgen dat de blokken van de tiles aansluiten
-// Ik kan er voor zorgen dat de tiles bewegen
-// ik kan entities een kleinere hitbox geven om eerlijker te zijn
-
-// entiteiten blokkeren de tekst over de status van de speler
-
- * OOPD-5. Creëert een technisch ontwerp dat een klassendiagram bevat dat is
- * opgesteld volgens de aangereikte UML-regels
- * OOPD-5. Schrijft conform de eisen van de controlekaart
- * 
- * readme met game uitleg
- * readme met bronnen van plaatjes
- * 
- * FO updaten
- * TO structureren
- * TO invullen
- */
