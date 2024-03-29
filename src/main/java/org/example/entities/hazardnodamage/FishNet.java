@@ -14,7 +14,6 @@ package org.example.entities.hazardnodamage;
 import java.util.List;
 import org.example.entities.player.SalmonPlayer;
 import org.example.entities.tilemaps.RiverbedTile;
-
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
 import com.github.hanyaeger.api.entities.Collided;
@@ -24,7 +23,7 @@ import com.github.hanyaeger.api.entities.SceneBorderCrossingWatcher;
 import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
 import com.github.hanyaeger.api.scenes.SceneBorder;
 
-public class FishNet extends DynamicSpriteEntity implements SceneBorderCrossingWatcher, Collider, Collided {
+public class FishNet extends DynamicSpriteEntity implements SceneBorderCrossingWatcher, Collider, Collided, HazardNoDamage {
     private int spriteWidth;
     private int spriteHeight;
 

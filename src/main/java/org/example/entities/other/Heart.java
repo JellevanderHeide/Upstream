@@ -12,9 +12,9 @@ package org.example.entities.other;
 
 import com.github.hanyaeger.api.Coordinate2D;
 import com.github.hanyaeger.api.Size;
-import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
+import com.github.hanyaeger.api.entities.impl.SpriteEntity;
 
-public class Heart extends DynamicSpriteEntity {
+public class Heart extends SpriteEntity {
     public Heart(Coordinate2D location, Size size) {
         super("backdrops/heart.png", location, size);
     }

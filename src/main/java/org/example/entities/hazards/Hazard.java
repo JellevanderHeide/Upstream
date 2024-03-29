@@ -12,8 +12,48 @@ package org.example.entities.hazards;
 
 import org.example.entities.player.SalmonPlayer;
 
-public interface Hazard {
-    public int getSpriteHeight();
-    public int getSpriteWidth();
-    public void doDamage(SalmonPlayer player);
+import com.github.hanyaeger.api.Coordinate2D;
+import com.github.hanyaeger.api.Size;
+import com.github.hanyaeger.api.entities.Collided;
+import com.github.hanyaeger.api.entities.Collider;
+import com.github.hanyaeger.api.entities.SceneBorderCrossingWatcher;
+import com.github.hanyaeger.api.entities.impl.DynamicSpriteEntity;
+
+public abstract class Hazard extends DynamicSpriteEntity implements SceneBorderCrossingWatcher, Collider, Collided{
+    private int damagePoints;
+    private int spriteWidth;
+    private int spriteHeight;
+
+    protected Hazard(String sprite, Coordinate2D location, Size size, int spriteWidth, int spriteHeight, int damagePoints) {
+        super(sprite, location, size);
+        this.damagePoints = damagePoints;
+        this.spriteHeight = spriteHeight;
+        this.spriteWidth = spriteWidth;
+    }
+
+    /** 
+     * Spriteheight getter.
+     * 
+     * @return int      the spriteheight.
+     */
+    public int getSpriteHeight(){
+        return this.spriteHeight;
+    }
+
+    /** 
+     * Spritewidth getter.
+     * 
+     * @return int      the spritewidth.
+     */
+    public int getSpriteWidth(){
+        return this.spriteWidth;
+    }
+
+    /** 
+     * A method for inflicting damage on a player, as much as the damagePoints
+     * are set at.
+     */
+    public void doDamage(SalmonPlayer player){
+        player.setHealth(player.getHealth() - this.damagePoints);
+    }
 }

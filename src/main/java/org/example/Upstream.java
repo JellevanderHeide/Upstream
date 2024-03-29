@@ -24,8 +24,8 @@ import org.example.scenes.RiverSequence;
 import org.example.scenes.StartScreen;
 
 public class Upstream extends YaegerGame {
-    private final int gameWidth = 1000;
-    private final int gameHeight = 800;
+    private final int GAMEWIDTH = 1000;
+    private final int GAMEHEIGHT = 800;
 
     public static void main(String[] args) {
         launch(args);
@@ -37,7 +37,7 @@ public class Upstream extends YaegerGame {
     @Override
     public void setupGame() {
         setGameTitle("Upstream");
-        setSize(new Size(gameWidth, gameHeight));
+        setSize(new Size(GAMEWIDTH, GAMEHEIGHT));
 
     }
 
@@ -56,13 +56,13 @@ public class Upstream extends YaegerGame {
      * A simple getter to calculate which tileheight to use, calculated by dividing gameheight by 50.
      */
     public int getTileHeight() {
-        return this.gameHeight / 50;
+        return this.GAMEHEIGHT / 50;
     }
 
     /** 
      * A simple getter to calculate which tileheight to use, calculated by dividing gameheight by 50.
      */
     public int getTileWidth() {
-        return this.gameWidth / 50;
+        return this.GAMEWIDTH / 50;
     }
 }
